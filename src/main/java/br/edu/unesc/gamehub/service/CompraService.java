@@ -30,7 +30,9 @@ public class CompraService {
 
         // RN05: impede compra duplicada
         if (compraRepository.existsByUsuarioIdAndJogoId(dto.usuarioId(), dto.jogoId())) {
-            throw new CompraDuplicadaException(dto.usuarioId(), dto.jogoId());
+                throw new CompraDuplicadaException(
+                    "Compra duplicada para usuário " + dto.usuarioId() + " e jogo " + dto.jogoId()
+                );
         }
 
         Usuario usuario = usuarioRepository.findById(dto.usuarioId())

@@ -37,7 +37,8 @@ src/main/java/br/edu/unesc/gamehub/
 ├── dto/ # DTOs de entrada e saída (nunca expor entity direto)
 ├── service/ # Regras de negócio
 ├── controller/ # Endpoints REST (usa @Valid nos DTOs de entrada)
-└── config/ # Beans de configuração (PasswordEncoder, Security)
+├── config/ # Beans de configuração (PasswordEncoder, Security)
+└── security/ # JWT e carregamento das autoridades do usuário
 
 src/main/resources/
 ├── application.yml
@@ -53,14 +54,22 @@ src/main/resources/
    → service → controller.
 3. Nunca expor `@Entity` direto no controller — sempre por DTO.
 
-## ⚠️ Sobre a Security (importante para o grupo)
+**Nota sobre migrations:** a migration de Compra foi publicada como `V6`, pois
+`V5` já estava ocupada por Avaliacao. A migration V4 original não era
+reconhecida pelo Flyway e o banco já tinha aplicado V5; usar V6 preserva a
+ordem do histórico sem executar uma migration fora de ordem.
 
-O `pom.xml` já inclui `spring-boot-starter-security` (exigido pelo trabalho),
-mas ainda **não tem JWT implementado**. Por padrão isso bloquearia todos os
-endpoints com login HTTP Basic. Para poder testar os CRUDs agora, existe uma
-`SecurityConfig` temporária em `config/` que libera tudo
-(`permitAll()`). **Essa classe precisa ser substituída pela configuração real
-de JWT** na etapa de Security (29/09) — não é definitiva.
+## Segurança e autorização
+
+A API usa JWT stateless. `POST /api/usuarios` (cadastro),
+`POST /api/auth/login` e Swagger/OpenAPI são públicos; os demais endpoints
+exigem `Authorization: Bearer <token>`. Escritas de Jogo e Categoria exigem
+perfil `ADMIN`.
+
+Os CRUDs de Compra e Avaliacao já existem. Os responsáveis por essas entidades
+ainda devem aplicar RN08/RN09: somente o dono do recurso ou um `ADMIN` pode
+acessá-lo. Usem `@PreAuthorize` ou verifiquem o usuário autenticado via
+`SecurityContextHolder`, seguindo o padrão de autorização usado em Jogo/Categoria.
 
 ## Exemplo de request/response (Usuario)
 
@@ -68,10 +77,13 @@ de JWT** na etapa de Security (29/09) — não é definitiva.
 ```json
 {
   "nome": "Daniel Felisberto",
-  "email": "daniel@gamehub.com",
+  "email": "usuario@gamehub.com",
   "senha": "senha123"
 }
 ```
+
+> Exemplo ilustrativo. Para testar o login, cadastre primeiro um usuário novo
+> via `POST /api/usuarios` e use o mesmo email e senha em `POST /api/auth/login`.
 
 **Resposta 201**
 ```json
@@ -100,22 +112,17 @@ de JWT** na etapa de Security (29/09) — não é definitiva.
 - [x] Entidade **Usuario** completa: entity, migration `V1`, repository, DTOs,
   validações, service (e-mail único, senha com hash BCrypt), controller
   REST com CRUD (Daniel) — testado e funcionando
+- [x] Entidades **Jogo** e **Categoria**, CRUDs e relacionamento N:N
+- [x] Entidade **Compra** (migration `V6`) e regras RN05 (compra duplicada) e RN06 (valor pago)
+- [x] Entidade **Avaliacao** e regras RN09/RN10/RN11 (compra necessária, nota 1-5 e unicidade)
+- [x] Tratamento centralizado de exceções (`@ControllerAdvice`)
+- [x] Spring Security + JWT stateless, login e autorização ADMIN em Jogo/Categoria
 
 ### 🔄 Em andamento
 - [ ] _(atualizar aqui conforme o grupo for pegando tarefas)_
 
 ### ⏳ Pendente
-- [ ] Entidade **Jogo**: entity, migration `V2`, repository, DTOs, service, controller (Gustavo)
-- [ ] Entidade **Categoria**: entity, migration `V3`, repository, DTOs, service, controller (Igor)
-- [ ] Relacionamento N:N Jogo ↔ Categoria (tabela `jogo_categoria`)
-- [ ] Entidade **Compra**: entity, migration `V4`, repository, DTOs, service, controller (Lucas)
-    - [ ] Regra RN05: impedir compra duplicada
-    - [ ] Regra RN06: guardar valor pago no momento da compra
-- [ ] Entidade **Avaliacao**: entity, migration `V5`, repository, DTOs, service, controller (Todos)
-    - [ ] Regra RN09: só quem comprou pode avaliar
-    - [ ] Regra RN10/RN11: nota 1-5, uma avaliação por usuário/jogo
-- [ ] Tratamento centralizado de exceções (`@ControllerAdvice`)
-- [ ] Spring Security + JWT real (substituir a `SecurityConfig` temporária)
+- [ ] Aplicar RN08/RN09 nos endpoints de Compra/Avaliacao: somente dono do recurso ou ADMIN
 - [ ] Protótipo das telas (Figma)
 - [ ] Documentação Swagger revisada
 - [ ] Apresentação (pitch 10-15min)
@@ -125,7 +132,7 @@ de JWT** na etapa de Security (29/09) — não é definitiva.
 | Etapa | Entrega | Data |
 |---|---|---|
 | Documento + DER | Planejamento e modelagem | 15/09/26 ✅ |
-| CRUDs básicos | Entidades e relacionamentos | 22/09/26 |
+| CRUDs básicos | Entidades e relacionamentos | 22/09/26 ✅ |
 | JWT + Spring Security | Segurança e refino | 29/09/26 |
 | Aplicação das camadas | Controller, Services, Repository | 06/10/26 |
 | Refinamento da solução | Swagger + ajustes | 20/10/26 |

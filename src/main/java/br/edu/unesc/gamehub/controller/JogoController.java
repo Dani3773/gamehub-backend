@@ -5,6 +5,7 @@ import br.edu.unesc.gamehub.dto.JogoResponseDTO;
 import br.edu.unesc.gamehub.service.JogoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ public class JogoController {
     private final JogoService jogoService;
 
     @PostMapping
+        @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<JogoResponseDTO> cadastrar(
             @Valid @RequestBody JogoRequestDTO dto
     ) {
@@ -43,6 +45,7 @@ public class JogoController {
     }
 
     @PutMapping("/{id}")
+        @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<JogoResponseDTO> atualizar(
             @PathVariable Long id,
             @Valid @RequestBody JogoRequestDTO dto
@@ -51,6 +54,7 @@ public class JogoController {
     }
 
     @DeleteMapping("/{id}")
+        @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> desativar(@PathVariable Long id) {
         jogoService.desativar(id);
         return ResponseEntity.noContent().build();
