@@ -115,13 +115,12 @@ A conta admin e somente para ambiente local e demonstração.
 ### ✅ Feito
 - [x] Setup do projeto (pom.xml, application.yml, docker-compose, Flyway)
 - [x] Entidade **Usuario** completa: entity, migration `V1`, repository, DTOs,
-  validacoes, service (e-mail unico, senha com hash BCrypt), controller REST
+  validações, service (e-mail único, senha com hash BCrypt), controller REST
   com CRUD (Daniel) — testado e funcionando
 - [x] Entidades **Jogo** e **Categoria**, CRUDs e relacionamento N:N
 - [x] Entidade **Compra** (migration `V6`) e regras RN05 (compra duplicada) e RN06 (valor pago)
 - [x] Entidade **Avaliacao**, RN09 (compra necessária e autor pelo token),
   RN10/RN11 e RF13 (somente autor atualiza/exclui)
-- [x] Tratamento centralizado de exceções (`@ControllerAdvice`)
 - [x] Spring Security + JWT stateless, login e autorização ADMIN em Jogo/Categoria
 - [x] Swagger global e documentação de Auth, Usuario e Avaliacao
 - [x] Administrador inicial para desenvolvimento/demonstração (migration `V7`)
@@ -131,33 +130,56 @@ A conta admin e somente para ambiente local e demonstração.
 - [ ] _(atualizar aqui conforme o grupo for pegando tarefas)_
 
 ### ⏳ Pendente
+- [ ] Tratamento centralizado de exceções (@ControllerAdvice) - parcial: handler incompleto: falta exceções de Avaliação, @Valid, 403 e fallback 500 (Igor)
 - [ ] Documentar JogoController e DTOs de Jogo no Swagger (Gustavo)
 - [ ] Documentar CategoriaController e DTOs de Categoria; completar GlobalExceptionHandler (Igor)
 - [ ] Documentar CompraController e DTOs de Compra; implementar RN08 (Lucas)
 - [ ] Padronizar a resposta HTTP 403 de Avaliacao no GlobalExceptionHandler
-- [ ] Protótipo das telas (Figma) para 27/10
+- [ ] Protótipo das 10 telas no Figma (cada um as suas) para 27/10
 - [ ] Revisão final do README para 27/10
 - [ ] Apresentação (pitch de 10-15 min) para 27/10
+- [ ] Confirmar com o professor se o front funcional será exigido
 
 ## Divisão da etapa 20/10/26 (Swagger + ajustes)
 
 > **REGRAS PARA QUEM FOR EXECUTAR (pessoa ou agente de IA):**
-> 1. Faca somente as tarefas listadas na SUA linha da tabela.
+> 1. Faça somente as tarefas listadas na SUA linha da tabela.
 > 2. Não edite arquivos que pertencem a outra pessoa.
-> 3. Não crie funcionalidades, endpoints, entidades ou dependencias novas.
-> 4. Não altere migrations ja existentes nem renomeie nada.
+> 3. Não crie funcionalidades, endpoints, entidades ou dependências novas.
+> 4. Não altere migrations já existentes nem renomeie nada.
 > 5. Faça `git pull origin main` antes de começar e commit pequeno ao terminar.
 > 6. Ao concluir, marque a tarefa como feita neste README (só a sua linha).
 > 7. Para documentar o Swagger, use apenas @Tag, @Operation, @ApiResponse e
 >    @Schema(example=...). Não mude a lógica dos métodos ao documentar.
-> 8. O OpenApiConfig e o login do admin ja existem; nao recrie.
+> 8. O OpenApiConfig e o login do admin já existem; não recrie.
 
 | Integrante | Tarefas desta etapa | Arquivos que pode editar |
 |---|---|---|
-| Daniel | FEITO: Swagger global; docs de Auth, Usuario e Avaliacao; admin inicial (migration); JWT secret por env; RN09/RF13 (autor vem do token; só o autor edita/exclui) | config/OpenApiConfig, AuthController, UsuarioController, AvaliacaoController, AvaliacaoService, DTOs de Auth/Usuario/Avaliacao, migration do admin, application.yml, README |
+| Daniel | FEITO: Swagger global; docs de Auth, Usuário e Avaliação; admin inicial (migration); JWT secret por env; RN09/RF13 (autor vem do token; só o autor edita/exclui) | config/OpenApiConfig, AuthController, UsuarioController, AvaliacaoController, AvaliacaoService, DTOs de Auth/Usuario/Avaliacao, migration do admin, application.yml, README |
 | Gustavo | Documentar JogoController e DTOs de Jogo no Swagger | JogoController, DTOs de Jogo |
-| Igor | Documentar CategoriaController e DTOs de Categoria; completar o GlobalExceptionHandler (exceções de Avaliacao, erros de @Valid/MethodArgumentNotValidException, 403 e fallback 500, mantendo o formato de erro atual) | CategoriaController, DTOs de Categoria, exception/ |
-| Lucas | Documentar CompraController e DTOs de Compra; implementar RN08 (so o dono da compra ou ADMIN acessa; usuário obtido pelo SecurityContextHolder, nunca pelo corpo da requisição) | CompraController, CompraService, DTOs de Compra |
+| Igor | Documentar CategoriaController e DTOs de Categoria; completar o GlobalExceptionHandler (exceções de Avaliação, erros de @Valid/MethodArgumentNotValidException, 403 e fallback 500, mantendo o formato de erro atual) | CategoriaController, DTOs de Categoria, exception/ |
+| Lucas | Documentar CompraController e DTOs de Compra; implementar RN08 (só o dono da compra ou ADMIN acessa; usuário obtido pelo SecurityContextHolder, nunca pelo corpo da requisição) | CompraController, CompraService, DTOs de Compra |
+
+## Frontend / Protótipo das telas (entrega 27/10)
+
+> Regras: cada pessoa faz só as telas da sua linha. O protótipo é no Figma e
+> não precisa ser funcional. A demonstração no pitch pode ser pelo Swagger.
+> Front funcional só se o professor exigir (a confirmar).
+
+| # | Tela | Responsável |
+|---|---|---|
+| 1 | Login | Daniel |
+| 2 | Cadastro de Usuário | Daniel |
+| 6 | Meu Perfil | Daniel |
+| 10 | Gerenciar Usuários | Daniel |
+| 3 | Home / Catálogo de Jogos | Gustavo |
+| 4 | Detalhes do Jogo | Gustavo (avaliações dentro da tela: Daniel) |
+| 8 | Gerenciar Jogos | Gustavo |
+| 9 | Gerenciar Categorias | Igor |
+| - | Filtros de categoria da Home, navbar e componentes compartilhados | Igor |
+| 5 | Minha Biblioteca / Compras | Lucas |
+| - | Fluxo de compra dentro de Detalhes do Jogo | Lucas |
+| 7 | Painel Administrativo | Lucas |
 
 ## 📅 Prazos
 
