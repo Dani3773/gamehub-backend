@@ -136,6 +136,9 @@ A conta admin e somente para ambiente local e demonstração.
 - [ ] Documentar JogoController e DTOs de Jogo no Swagger (Gustavo)
 - [ ] Tratamento centralizado de exceções (@ControllerAdvice) - parcial: handler incompleto: falta exceções de Avaliação, @Valid, 403 e fallback 500 (Igor)
 - [x] Documentar JogoController e DTOs de Jogo no Swagger (Gustavo)
+- [ ] Documentar CategoriaController e DTOs de Categoria; completar GlobalExceptionHandler (Igor)
+- [x] Documentar CompraController e DTOs de Compra; implementar RN08 (Lucas)
+- [ ] Padronizar a resposta HTTP 403 de Avaliacao no GlobalExceptionHandler
 - [x] Documentar CategoriaController e DTOs de Categoria; completar GlobalExceptionHandler (Igor)
 - [ ] Documentar CompraController e DTOs de Compra; implementar RN08 (Lucas)
 - [ ] Protótipo das 10 telas no Figma (cada um as suas) para 27/10
@@ -162,7 +165,7 @@ A conta admin e somente para ambiente local e demonstração.
 | Igor | FEITO: Documentar CategoriaController e DTOs de Categoria; completar o GlobalExceptionHandler (exceções de Avaliação, erros de @Valid/MethodArgumentNotValidException, 403 e fallback 500, mantendo o formato de erro atual) | CategoriaController, DTOs de Categoria, exception/ |
 | Gustavo | FEITO: Documentar JogoController e DTOs de Jogo no Swagger | JogoController, DTOs de Jogo |
 | Igor | Documentar CategoriaController e DTOs de Categoria; completar o GlobalExceptionHandler (exceções de Avaliação, erros de @Valid/MethodArgumentNotValidException, 403 e fallback 500, mantendo o formato de erro atual) | CategoriaController, DTOs de Categoria, exception/ |
-| Lucas | Documentar CompraController e DTOs de Compra; implementar RN08 (só o dono da compra ou ADMIN acessa; usuário obtido pelo SecurityContextHolder, nunca pelo corpo da requisição) | CompraController, CompraService, DTOs de Compra |
+| Lucas | FEITO: Documentar CompraController e DTOs de Compra; implementar RN08 (só o dono da compra ou ADMIN acessa; usuário obtido pelo SecurityContextHolder, nunca pelo corpo da requisição) | CompraController, CompraService, DTOs de Compra |
 
 ## Frontend / Protótipo das telas (entrega 27/10)
 
