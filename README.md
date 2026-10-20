@@ -125,16 +125,16 @@ A conta admin e somente para ambiente local e demonstração.
 - [x] Swagger global e documentação de Auth, Usuario e Avaliacao
 - [x] Administrador inicial para desenvolvimento/demonstração (migration `V7`)
 - [x] Segredo JWT configurável por `JWT_SECRET`, com fallback local
+- [x] Tratamento centralizado de exceções (@ControllerAdvice) - parcial: handler incompleto: falta exceções de Avaliação, @Valid, 403 e fallback 500 (Igor)
+- [x] Documentar CategoriaController e DTOs de Categoria; completar GlobalExceptionHandler (Igor)
+- [x] Padronizar a resposta HTTP 403 de Avaliacao no GlobalExceptionHandler
 
 ### 🔄 Em andamento
 - [ ] _(atualizar aqui conforme o grupo for pegando tarefas)_
 
 ### ⏳ Pendente
-- [ ] Tratamento centralizado de exceções (@ControllerAdvice) - parcial: handler incompleto: falta exceções de Avaliação, @Valid, 403 e fallback 500 (Igor)
 - [ ] Documentar JogoController e DTOs de Jogo no Swagger (Gustavo)
-- [ ] Documentar CategoriaController e DTOs de Categoria; completar GlobalExceptionHandler (Igor)
 - [ ] Documentar CompraController e DTOs de Compra; implementar RN08 (Lucas)
-- [ ] Padronizar a resposta HTTP 403 de Avaliacao no GlobalExceptionHandler
 - [ ] Protótipo das 10 telas no Figma (cada um as suas) para 27/10
 - [ ] Revisão final do README para 27/10
 - [ ] Apresentação (pitch de 10-15 min) para 27/10
@@ -157,7 +157,7 @@ A conta admin e somente para ambiente local e demonstração.
 |---|---|---|
 | Daniel | FEITO: Swagger global; docs de Auth, Usuário e Avaliação; admin inicial (migration); JWT secret por env; RN09/RF13 (autor vem do token; só o autor edita/exclui) | config/OpenApiConfig, AuthController, UsuarioController, AvaliacaoController, AvaliacaoService, DTOs de Auth/Usuario/Avaliacao, migration do admin, application.yml, README |
 | Gustavo | Documentar JogoController e DTOs de Jogo no Swagger | JogoController, DTOs de Jogo |
-| Igor | Documentar CategoriaController e DTOs de Categoria; completar o GlobalExceptionHandler (exceções de Avaliação, erros de @Valid/MethodArgumentNotValidException, 403 e fallback 500, mantendo o formato de erro atual) | CategoriaController, DTOs de Categoria, exception/ |
+| Igor | FEITO: Documentar CategoriaController e DTOs de Categoria; completar o GlobalExceptionHandler (exceções de Avaliação, erros de @Valid/MethodArgumentNotValidException, 403 e fallback 500, mantendo o formato de erro atual) | CategoriaController, DTOs de Categoria, exception/ |
 | Lucas | Documentar CompraController e DTOs de Compra; implementar RN08 (só o dono da compra ou ADMIN acessa; usuário obtido pelo SecurityContextHolder, nunca pelo corpo da requisição) | CompraController, CompraService, DTOs de Compra |
 
 ## Frontend / Protótipo das telas (entrega 27/10)
