@@ -27,6 +27,9 @@ Spring Boot 3 como Trabalho 1 da disciplina.
 3. API: `http://localhost:8080`
 4. Swagger UI: `http://localhost:8080/swagger-ui.html`
 
+No Swagger, faça login em `POST /api/auth/login`, copie o valor do token
+retornado e cole no botão **Authorize**, sem escrever `Bearer`.
+
 O Flyway roda as migrations automaticamente ao subir a aplicação.
 
 ## Estrutura de pastas
@@ -66,10 +69,9 @@ A API usa JWT stateless. `POST /api/usuarios` (cadastro),
 exigem `Authorization: Bearer <token>`. Escritas de Jogo e Categoria exigem
 perfil `ADMIN`.
 
-Os CRUDs de Compra e Avaliacao já existem. Os responsáveis por essas entidades
-ainda devem aplicar RN08/RN09: somente o dono do recurso ou um `ADMIN` pode
-acessá-lo. Usem `@PreAuthorize` ou verifiquem o usuário autenticado via
-`SecurityContextHolder`, seguindo o padrão de autorização usado em Jogo/Categoria.
+A compra ainda precisa da RN08: somente o dono da compra ou um `ADMIN` pode
+acessá-la. Em Avaliacao, o autor vem do token; somente quem comprou o jogo
+pode avaliar e somente o autor pode atualizar ou excluir (RN09/RF13).
 
 ## Exemplo de request/response (Usuario)
 
@@ -102,6 +104,9 @@ acessá-lo. Usem `@PreAuthorize` ou verifiquem o usuário autenticado via
 | Serviço  | Usuário  | Senha       |
 |----------|----------|-------------|
 | Postgres | gamehub  | gamehub123  |
+| Admin de desenvolvimento | admin@gamehub.com | Admin@2026 |
+
+A conta admin e somente para ambiente local e demonstração.
 
 ---
 
@@ -110,22 +115,49 @@ acessá-lo. Usem `@PreAuthorize` ou verifiquem o usuário autenticado via
 ### ✅ Feito
 - [x] Setup do projeto (pom.xml, application.yml, docker-compose, Flyway)
 - [x] Entidade **Usuario** completa: entity, migration `V1`, repository, DTOs,
-  validações, service (e-mail único, senha com hash BCrypt), controller
-  REST com CRUD (Daniel) — testado e funcionando
+  validacoes, service (e-mail unico, senha com hash BCrypt), controller REST
+  com CRUD (Daniel) — testado e funcionando
 - [x] Entidades **Jogo** e **Categoria**, CRUDs e relacionamento N:N
 - [x] Entidade **Compra** (migration `V6`) e regras RN05 (compra duplicada) e RN06 (valor pago)
-- [x] Entidade **Avaliacao** e regras RN09/RN10/RN11 (compra necessária, nota 1-5 e unicidade)
+- [x] Entidade **Avaliacao**, RN09 (compra necessária e autor pelo token),
+  RN10/RN11 e RF13 (somente autor atualiza/exclui)
 - [x] Tratamento centralizado de exceções (`@ControllerAdvice`)
 - [x] Spring Security + JWT stateless, login e autorização ADMIN em Jogo/Categoria
+- [x] Swagger global e documentação de Auth, Usuario e Avaliacao
+- [x] Administrador inicial para desenvolvimento/demonstração (migration `V7`)
+- [x] Segredo JWT configurável por `JWT_SECRET`, com fallback local
 
 ### 🔄 Em andamento
 - [ ] _(atualizar aqui conforme o grupo for pegando tarefas)_
 
 ### ⏳ Pendente
-- [ ] Aplicar RN08/RN09 nos endpoints de Compra/Avaliacao: somente dono do recurso ou ADMIN
-- [ ] Protótipo das telas (Figma)
-- [ ] Documentação Swagger revisada
-- [ ] Apresentação (pitch 10-15min)
+- [ ] Documentar JogoController e DTOs de Jogo no Swagger (Gustavo)
+- [ ] Documentar CategoriaController e DTOs de Categoria; completar GlobalExceptionHandler (Igor)
+- [ ] Documentar CompraController e DTOs de Compra; implementar RN08 (Lucas)
+- [ ] Padronizar a resposta HTTP 403 de Avaliacao no GlobalExceptionHandler
+- [ ] Protótipo das telas (Figma) para 27/10
+- [ ] Revisão final do README para 27/10
+- [ ] Apresentação (pitch de 10-15 min) para 27/10
+
+## Divisão da etapa 20/10/26 (Swagger + ajustes)
+
+> **REGRAS PARA QUEM FOR EXECUTAR (pessoa ou agente de IA):**
+> 1. Faca somente as tarefas listadas na SUA linha da tabela.
+> 2. Não edite arquivos que pertencem a outra pessoa.
+> 3. Não crie funcionalidades, endpoints, entidades ou dependencias novas.
+> 4. Não altere migrations ja existentes nem renomeie nada.
+> 5. Faça `git pull origin main` antes de começar e commit pequeno ao terminar.
+> 6. Ao concluir, marque a tarefa como feita neste README (só a sua linha).
+> 7. Para documentar o Swagger, use apenas @Tag, @Operation, @ApiResponse e
+>    @Schema(example=...). Não mude a lógica dos métodos ao documentar.
+> 8. O OpenApiConfig e o login do admin ja existem; nao recrie.
+
+| Integrante | Tarefas desta etapa | Arquivos que pode editar |
+|---|---|---|
+| Daniel | FEITO: Swagger global; docs de Auth, Usuario e Avaliacao; admin inicial (migration); JWT secret por env; RN09/RF13 (autor vem do token; só o autor edita/exclui) | config/OpenApiConfig, AuthController, UsuarioController, AvaliacaoController, AvaliacaoService, DTOs de Auth/Usuario/Avaliacao, migration do admin, application.yml, README |
+| Gustavo | Documentar JogoController e DTOs de Jogo no Swagger | JogoController, DTOs de Jogo |
+| Igor | Documentar CategoriaController e DTOs de Categoria; completar o GlobalExceptionHandler (exceções de Avaliacao, erros de @Valid/MethodArgumentNotValidException, 403 e fallback 500, mantendo o formato de erro atual) | CategoriaController, DTOs de Categoria, exception/ |
+| Lucas | Documentar CompraController e DTOs de Compra; implementar RN08 (so o dono da compra ou ADMIN acessa; usuário obtido pelo SecurityContextHolder, nunca pelo corpo da requisição) | CompraController, CompraService, DTOs de Compra |
 
 ## 📅 Prazos
 
@@ -133,7 +165,7 @@ acessá-lo. Usem `@PreAuthorize` ou verifiquem o usuário autenticado via
 |---|---|---|
 | Documento + DER | Planejamento e modelagem | 15/09/26 ✅ |
 | CRUDs básicos | Entidades e relacionamentos | 22/09/26 ✅ |
-| JWT + Spring Security | Segurança e refino | 29/09/26 |
-| Aplicação das camadas | Controller, Services, Repository | 06/10/26 |
+| JWT + Spring Security | Segurança e refino | 29/09/26 ✅ |
+| Aplicação das camadas | Controller, Services, Repository | 06/10/26 ✅ |
 | Refinamento da solução | Swagger + ajustes | 20/10/26 |
 | Projeto final + apresentação | — | 27/10/26 |

@@ -13,8 +13,12 @@ import br.edu.unesc.gamehub.repository.JogoRepository;
 import br.edu.unesc.gamehub.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -31,7 +35,7 @@ public class AvaliacaoService {
     public AvaliacaoResponseDTO cadastrar(
             AvaliacaoRequestDTO dto
     ) {
-        Usuario usuario = buscarUsuario(dto.usuarioId());
+        Usuario usuario = buscarUsuarioAutenticado();
         Jogo jogo = buscarJogo(dto.jogoId());
 
         // RN09: somente quem comprou o jogo pode avaliá-lo
@@ -113,7 +117,8 @@ public class AvaliacaoService {
             AvaliacaoRequestDTO dto
     ) {
         Avaliacao avaliacao = buscarAvaliacao(id);
-        Usuario usuario = buscarUsuario(dto.usuarioId());
+        Usuario usuario = buscarUsuarioAutenticado();
+        validarAutor(avaliacao, usuario);
         Jogo jogo = buscarJogo(dto.jogoId());
 
         if (!compraRepository.existsByUsuarioIdAndJogoId(
@@ -138,7 +143,6 @@ public class AvaliacaoService {
             );
         }
 
-        avaliacao.setUsuario(usuario);
         avaliacao.setJogo(jogo);
         avaliacao.setNota(dto.nota());
         avaliacao.setComentario(dto.comentario());
@@ -151,6 +155,7 @@ public class AvaliacaoService {
     @Transactional
     public void excluir(Long id) {
         Avaliacao avaliacao = buscarAvaliacao(id);
+        validarAutor(avaliacao, buscarUsuarioAutenticado());
         avaliacaoRepository.delete(avaliacao);
     }
 
@@ -179,5 +184,24 @@ public class AvaliacaoService {
                                 "Jogo não encontrado: " + id
                         )
                 );
+    }
+
+    private Usuario buscarUsuarioAutenticado() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()
+                || authentication.getName() == null || "anonymousUser".equals(authentication.getName())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Autenticação necessária");
+        }
+        return usuarioRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Usuário autenticado não encontrado: " + authentication.getName()
+                ));
+    }
+
+    private void validarAutor(Avaliacao avaliacao, Usuario usuario) {
+        if (!avaliacao.getUsuario().getId().equals(usuario.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Somente o autor pode alterar ou excluir esta avaliação");
+        }
     }
 }
