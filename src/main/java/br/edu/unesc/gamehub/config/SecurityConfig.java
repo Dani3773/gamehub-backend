@@ -32,6 +32,7 @@ public class SecurityConfig {
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/favicon.ico").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios", "/api/auth/login").permitAll()
                         .requestMatchers(
                                 "/swagger-ui.html",

@@ -3,6 +3,7 @@ package br.edu.unesc.gamehub.service;
 import br.edu.unesc.gamehub.dto.UsuarioRequestDTO;
 import br.edu.unesc.gamehub.dto.UsuarioResponseDTO;
 import br.edu.unesc.gamehub.entity.Usuario;
+import br.edu.unesc.gamehub.dto.UsuarioAdminRequestDTO;
 import br.edu.unesc.gamehub.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,11 +38,31 @@ public class UsuarioService {
         return UsuarioResponseDTO.from(usuarioRepository.save(usuario));
     }
 
+    @Transactional
+    public UsuarioResponseDTO cadastrarAdministrativo(UsuarioAdminRequestDTO dto) {
+        validarEmailDisponivel(dto.email());
+        Usuario usuario = Usuario.builder()
+                .nome(dto.nome())
+                .email(dto.email())
+                .senhaHash(passwordEncoder.encode(dto.senha()))
+                .perfil(dto.perfil())
+                .build();
+        return UsuarioResponseDTO.from(usuarioRepository.save(usuario));
+    }
+
     @Transactional(readOnly = true)
     public UsuarioResponseDTO buscarPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Usuario não encontrado com id: " + id));
+        return UsuarioResponseDTO.from(usuario);
+    }
+
+    @Transactional(readOnly = true)
+    public UsuarioResponseDTO buscarPorEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Usuário não encontrado"));
         return UsuarioResponseDTO.from(usuario);
     }
 
@@ -70,6 +91,28 @@ public class UsuarioService {
 
         return UsuarioResponseDTO.from(usuario);
         // Não precisa de save() explícito: entidade gerenciada, o JPA sincroniza no commit (dirty checking).
+    }
+
+    @Transactional
+    public UsuarioResponseDTO atualizarAdministrativo(Long id, UsuarioAdminRequestDTO dto) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Usuário não encontrado com id: " + id));
+        if (!usuario.getEmail().equalsIgnoreCase(dto.email())) {
+            validarEmailDisponivel(dto.email());
+        }
+        usuario.setNome(dto.nome());
+        usuario.setEmail(dto.email());
+        usuario.setSenhaHash(passwordEncoder.encode(dto.senha()));
+        usuario.setPerfil(dto.perfil());
+        return UsuarioResponseDTO.from(usuario);
+    }
+
+    private void validarEmailDisponivel(String email) {
+        if (usuarioRepository.existsByEmail(email)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Já existe um usuário cadastrado com este e-mail");
+        }
     }
 
     @Transactional

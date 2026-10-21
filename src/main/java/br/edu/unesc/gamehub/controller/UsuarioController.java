@@ -1,6 +1,7 @@
 package br.edu.unesc.gamehub.controller;
 
 import br.edu.unesc.gamehub.dto.UsuarioRequestDTO;
+import br.edu.unesc.gamehub.dto.UsuarioAdminRequestDTO;
 import br.edu.unesc.gamehub.dto.UsuarioResponseDTO;
 import br.edu.unesc.gamehub.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.net.URI;
 import java.util.List;
@@ -37,6 +39,14 @@ public class UsuarioController {
         return ResponseEntity.created(URI.create("/api/usuarios/" + criado.id())).body(criado);
     }
 
+    @PostMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UsuarioResponseDTO> cadastrarAdministrativo(
+            @Valid @RequestBody UsuarioAdminRequestDTO dto) {
+        UsuarioResponseDTO criado = usuarioService.cadastrarAdministrativo(dto);
+        return ResponseEntity.created(URI.create("/api/usuarios/" + criado.id())).body(criado);
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Buscar usuário", description = "Busca um usuário pelo identificador.")
     @ApiResponses({
@@ -49,7 +59,14 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UsuarioResponseDTO> buscarUsuarioAutenticado(
+            org.springframework.security.core.Authentication authentication) {
+        return ResponseEntity.ok(usuarioService.buscarPorEmail(authentication.getName()));
+    }
+
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Listar usuários")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Lista de usuários"),
@@ -72,6 +89,13 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResponseDTO> atualizar(@PathVariable Long id,
                                                         @Valid @RequestBody UsuarioRequestDTO dto) {
         return ResponseEntity.ok(usuarioService.atualizar(id, dto));
+    }
+
+    @PutMapping("/{id}/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UsuarioResponseDTO> atualizarAdministrativo(
+            @PathVariable Long id, @Valid @RequestBody UsuarioAdminRequestDTO dto) {
+        return ResponseEntity.ok(usuarioService.atualizarAdministrativo(id, dto));
     }
 
     @DeleteMapping("/{id}")

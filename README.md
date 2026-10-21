@@ -175,18 +175,35 @@ A conta admin e somente para ambiente local e demonstração.
 
 | # | Tela | Responsável |
 |---|---|---|
-| 1 | Login | Daniel |
-| 2 | Cadastro de Usuário | Daniel |
-| 6 | Meu Perfil | Daniel |
-| 10 | Gerenciar Usuários | Daniel |
+| 1 | Login | Implementado (Daniel) — `http://localhost:8080/index.html` |
+| 2 | Cadastro de Usuário | Implementado (Daniel) — `http://localhost:8080/cadastro.html` |
+| 6 | Meu Perfil | Implementado (Daniel) — `http://localhost:8080/perfil.html` |
+| 10 | Gerenciar Usuários | Implementado (Daniel) — `http://localhost:8080/usuarios.html` |
 | 3 | Home / Catálogo de Jogos | Gustavo |
-| 4 | Detalhes do Jogo | Gustavo (avaliações dentro da tela: Daniel) |
+| 4 | Detalhes do Jogo | Gustavo (avaliações dentro da tela: Implementado (Daniel) — `http://localhost:8080/avaliacoes.html?jogoId=ID`) |
 | 8 | Gerenciar Jogos | Gustavo |
 | 9 | Gerenciar Categorias | Igor |
 | - | Filtros de categoria da Home, navbar e componentes compartilhados | Igor |
 | 5 | Minha Biblioteca / Compras | Lucas |
 | - | Fluxo de compra dentro de Detalhes do Jogo | Lucas |
 | 7 | Painel Administrativo | Lucas |
+
+### Front funcional
+
+Acesse o front em `http://localhost:8080/index.html` depois de iniciar a aplicação Spring Boot.
+As telas de login, cadastro, perfil, gerenciamento de usuários e avaliações usam HTML, CSS e JavaScript servidos pelo próprio Spring Boot.
+
+**Rotas adicionadas para as telas:**
+- `GET /api/usuarios/me` retorna o usuário autenticado, pois o JWT contém somente o e-mail no `sub`.
+- `POST /api/usuarios/admin` e `PUT /api/usuarios/{id}/admin` permitem ao ADMIN criar e editar usuários, incluindo o perfil. Ambas validam o DTO administrativo.
+- A listagem completa de usuários agora exige perfil ADMIN.
+
+**Integrações pendentes das telas:**
+- O link “Comprar jogo” leva ao catálogo (`/jogos`), cuja tela e fluxo de compra estão com os colegas.
+- A elegibilidade para avaliar é consultada por meio de `GET /compras` e a API também valida a compra ao publicar (`POST /avaliacoes`).
+- `GET /avaliacoes/jogo/{jogoId}` já existia e é usado pela tela de avaliações.
+
+**Pendente para os colegas:** telas de Home/Catálogo e detalhes do jogo (Gustavo); componentes compartilhados, navbar e filtros de categoria (Igor); Minha Biblioteca/Compras, fluxo de compra e Painel Administrativo (Lucas); protótipos restantes de jogos e categorias conforme divisão do grupo.
 
 ## 📅 Prazos
 
