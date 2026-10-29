@@ -128,18 +128,12 @@ A conta admin e somente para ambiente local e demonstração.
 - [x] Tratamento centralizado de exceções (@ControllerAdvice) - parcial: handler incompleto: falta exceções de Avaliação, @Valid, 403 e fallback 500 (Igor)
 - [x] Documentar CategoriaController e DTOs de Categoria; completar GlobalExceptionHandler (Igor)
 - [x] Padronizar a resposta HTTP 403 de Avaliacao no GlobalExceptionHandler
+- [x] Documentar JogoController e DTOs de Jogo no Swagger (Gustavo)
 
 ### 🔄 Em andamento
 - [ ] _(atualizar aqui conforme o grupo for pegando tarefas)_
 
 ### ⏳ Pendente
-- [ ] Documentar JogoController e DTOs de Jogo no Swagger (Gustavo)
-- [ ] Tratamento centralizado de exceções (@ControllerAdvice) - parcial: handler incompleto: falta exceções de Avaliação, @Valid, 403 e fallback 500 (Igor)
-- [x] Documentar JogoController e DTOs de Jogo no Swagger (Gustavo)
-- [ ] Documentar CategoriaController e DTOs de Categoria; completar GlobalExceptionHandler (Igor)
-- [x] Documentar CompraController e DTOs de Compra; implementar RN08 (Lucas)
-- [ ] Padronizar a resposta HTTP 403 de Avaliacao no GlobalExceptionHandler
-- [x] Documentar CategoriaController e DTOs de Categoria; completar GlobalExceptionHandler (Igor)
 - [ ] Documentar CompraController e DTOs de Compra; implementar RN08 (Lucas)
 - [ ] Protótipo das 10 telas no Figma (cada um as suas) para 27/10
 - [ ] Revisão final do README para 27/10
@@ -164,7 +158,6 @@ A conta admin e somente para ambiente local e demonstração.
 | Daniel | FEITO: Swagger global; docs de Auth, Usuário e Avaliação; admin inicial (migration); JWT secret por env; RN09/RF13 (autor vem do token; só o autor edita/exclui) | config/OpenApiConfig, AuthController, UsuarioController, AvaliacaoController, AvaliacaoService, DTOs de Auth/Usuario/Avaliacao, migration do admin, application.yml, README |
 | Igor | FEITO: Documentar CategoriaController e DTOs de Categoria; completar o GlobalExceptionHandler (exceções de Avaliação, erros de @Valid/MethodArgumentNotValidException, 403 e fallback 500, mantendo o formato de erro atual) | CategoriaController, DTOs de Categoria, exception/ |
 | Gustavo | FEITO: Documentar JogoController e DTOs de Jogo no Swagger | JogoController, DTOs de Jogo |
-| Igor | Documentar CategoriaController e DTOs de Categoria; completar o GlobalExceptionHandler (exceções de Avaliação, erros de @Valid/MethodArgumentNotValidException, 403 e fallback 500, mantendo o formato de erro atual) | CategoriaController, DTOs de Categoria, exception/ |
 | Lucas | FEITO: Documentar CompraController e DTOs de Compra; implementar RN08 (só o dono da compra ou ADMIN acessa; usuário obtido pelo SecurityContextHolder, nunca pelo corpo da requisição) | CompraController, CompraService, DTOs de Compra |
 
 ## Frontend / Protótipo das telas (entrega 27/10)
@@ -202,8 +195,10 @@ As telas de login, cadastro, perfil, gerenciamento de usuários e avaliações u
 - O link “Comprar jogo” leva ao catálogo (`/jogos`), cuja tela e fluxo de compra estão com os colegas.
 - A elegibilidade para avaliar é consultada por meio de `GET /compras` e a API também valida a compra ao publicar (`POST /avaliacoes`).
 - `GET /avaliacoes/jogo/{jogoId}` já existia e é usado pela tela de avaliações.
+- Navbar: as novas telas de catálogo, biblioteca e painel administrativo também deverão utilizar o componente compartilhado. As telas de login e cadastro não utilizam essa navbar.
 
-**Pendente para os colegas:** telas de Home/Catálogo e detalhes do jogo (Gustavo); componentes compartilhados, navbar e filtros de categoria (Igor); Minha Biblioteca/Compras, fluxo de compra e Painel Administrativo (Lucas); protótipos restantes de jogos e categorias conforme divisão do grupo.
+**Pendente para os colegas:** telas de Home/Catálogo e detalhes do jogo (Gustavo); filtros de categoria (Igor); Minha Biblioteca/Compras, fluxo de compra e Painel Administrativo (Lucas); protótipos restantes de jogos e categorias conforme divisão do grupo.
+(o catálogo deverá utilizar as funções montarFiltroCategorias() e filtrarPorCategoria(). O componente consulta as categorias em GET /categorias e filtra os jogos pelo campo categorias retornado pela API.)
 
 ## 📅 Prazos
 

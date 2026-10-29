@@ -1,10 +1,14 @@
 import { api, json } from './api.js';
-import { guard, initials, logout } from './auth.js';
-const $ = s => document.querySelector(s), jogoId = new URLSearchParams(location.search).get('jogoId');
-$('#logout').onclick=logout;
-if(!jogoId){$('#title').textContent='Jogo não informado';throw new Error('jogoId ausente');}
-const me=await guard(api); if(!me) throw new Error('Autenticação necessária.');
-$('#userChip').innerHTML=`<span class="initials">${initials(me.nome)}</span>${me.nome}`;
+import { guard } from './auth.js';
+import { montarNavbar } from './navbar.js';
+
+const $ = s => document.querySelector(s);
+const jogoId = new URLSearchParams(location.search).get('jogoId');
+const me = await guard(api);
+
+if (!me) {throw new Error('Autenticação necessária.');}
+montarNavbar(me);
+if (!jogoId) {$('#title').textContent = 'Jogo não informado';throw new Error('jogoId ausente');}
 let reviews=[], rating=0, editing=null, owned=false;
 async function boot(){try{const game=await api(`/jogos/${encodeURIComponent(jogoId)}`);$('#title').textContent=`Avaliações: ${game.nome}`;$('#crumb').textContent=game.nome;}catch{$('#title').textContent=`Avaliações: Jogo #${jogoId}`;$('#crumb').textContent=`Jogo #${jogoId}`;}
   reviews=await api(`/avaliacoes/jogo/${encodeURIComponent(jogoId)}`); render(); panel();

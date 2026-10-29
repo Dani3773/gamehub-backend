@@ -1,10 +1,16 @@
 import { api, json } from './api.js';
-import { guard, initials, logout } from './auth.js';
-const $ = s => document.querySelector(s), error = $('#error'), modal = $('#modal'), form = $('#userForm');
-$('#logout').onclick = logout;
+import { guard } from './auth.js';
+import { montarNavbar } from './navbar.js';
+
+const $ = s => document.querySelector(s);
+
+const error = $('#error');
+const modal = $('#modal');
+const form = $('#userForm');
 let me, users = [], filter = 'all', editing = null;
-me = await guard(api, true); if (!me) throw new Error('Acesso restrito.');
-$('#userChip').innerHTML = `<span class="initials">${initials(me.nome)}</span>${me.nome}`;
+me = await guard(api, true);
+if (!me) {throw new Error('Acesso restrito.');}
+montarNavbar(me);
 function render() {
   const query = $('#search').value.toLocaleLowerCase('pt-BR');
   const shown = users.filter(u => (filter === 'all' || (filter === 'inactive' ? !u.ativo : u.perfil === filter)) && `${u.nome} ${u.email}`.toLocaleLowerCase('pt-BR').includes(query));

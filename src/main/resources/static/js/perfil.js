@@ -1,14 +1,14 @@
 import { api, json } from './api.js';
 import { guard, initials, logout } from './auth.js';
+import { montarNavbar } from './navbar.js';
 const $ = s => document.querySelector(s), form = $('#form'), error = $('#error');
-$('#logout').onclick = logout;
 let user;
 function fill() {
   $('#avatar').textContent = initials(user.nome); $('#profileName').textContent = user.nome; $('#profileEmail').textContent = user.email;
   $('#profileRole').textContent = user.perfil; $('#profileRole').classList.toggle('admin', user.perfil === 'ADMIN');
   $('#memberSince').textContent = user.dataCadastro ? new Date(user.dataCadastro).toLocaleDateString('pt-BR') : '—';
   $('#status').textContent = user.ativo ? 'Ativo' : 'Inativo';
-  $('#chipInitials').textContent = initials(user.nome); $('#chipName').textContent = user.nome;
+  montarNavbar(user);
   form.nome.value = user.nome; form.email.value = user.email; form.senha.value = '';
 }
 user = await guard(api); if (user) fill();
