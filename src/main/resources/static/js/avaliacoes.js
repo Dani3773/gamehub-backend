@@ -130,20 +130,38 @@ async function panel() {
     <button id="publish" class="button primary">Publicar avaliação</button>
   `;
 
-  starButtons($('#stars'), v => rating = v);
+  let newRating = 0;
+
+  starButtons($('#stars'), nota => {
+    newRating = nota;
+  });
 
   $('#publish').onclick = async () => {
-    try {
-      if (!rating) {
-        throw new Error('Selecione uma nota de 1 a 5.');
+    const error = $('#newError');
+    const comentario = $('#newComment').value.trim();
+
+    error.classList.add('hidden');
+
+    if (!newRating || !comentario) {
+      if (!newRating && !comentario) {
+        error.textContent = 'Selecione uma nota de 1 a 5 estrelas e escreva um comentário.';
+      } else if (!newRating) {
+        error.textContent = 'Selecione uma nota de 1 a 5 estrelas.';
+      } else {
+        error.textContent = 'Escreva um comentário sobre o jogo.';
       }
 
+      error.classList.remove('hidden');
+      return;
+    }
+
+    try {
       await api('/avaliacoes', {
         method: 'POST',
         body: json({
           jogoId: Number(jogoId),
-          nota: rating,
-          comentario: $('#newComment').value
+          nota: newRating,
+          comentario
         })
       });
 
@@ -158,9 +176,8 @@ async function panel() {
         return;
       }
 
-      const err = $('#newError');
-      err.textContent = e.message;
-      err.classList.remove('hidden');
+      error.textContent = e.message;
+      error.classList.remove('hidden');
     }
   };
 }
