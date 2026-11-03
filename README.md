@@ -177,9 +177,9 @@ A conta admin e somente para ambiente local e demonstração.
 | 8 | Gerenciar Jogos | Gustavo |
 | 9 | Gerenciar Categorias | Igor |
 | - | Filtros de categoria da Home, navbar e componentes compartilhados | Igor |
-| 5 | Minha Biblioteca / Compras | Lucas |
-| - | Fluxo de compra dentro de Detalhes do Jogo | Lucas |
-| 7 | Painel Administrativo | Lucas |
+| 5 | Minha Biblioteca / Compras | Implementado (Lucas) — `http://localhost:8080/biblioteca.html` |
+| - | Fluxo de compra dentro de Detalhes do Jogo | Implementado (Lucas) — botão "Comprar jogo" em `detalhes-jogo.html?id=ID` (`js/compra.js`) |
+| 7 | Painel Administrativo | Implementado (Lucas) — `http://localhost:8080/painel-admin.html` (somente ADMIN) |
 
 ### Front funcional
 

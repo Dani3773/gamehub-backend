@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090B">
+  <title>Painel administrativo | GameHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/jogos.css">
+  <link rel="stylesheet" href="/css/compras.css">
+</head>
+<body>
+  <div id="navbar"></div>
+  <main class="container gh-page gh-admin-page">
+    <nav class="gh-breadcrumb" aria-label="Caminho de navegação"><a href="/jogos.html">CATÁLOGO</a><span aria-hidden="true">/</span><span>PAINEL ADMINISTRATIVO</span></nav>
+    <div class="gh-admin-heading"><div><p class="gh-eyebrow">PAINEL ADMINISTRATIVO / GAMEHUB</p><h1>VISÃO <span>GERAL.</span></h1><p class="muted">Acompanhe usuários, catálogo, vendas e avaliações da plataforma.</p></div><button id="reload" type="button" class="button">↻ ATUALIZAR</button></div>
+
+    <div id="panelError" class="error hidden" role="alert"></div>
+
+    <div class="gh-stat-grid gh-stat-grid--4" aria-label="Indicadores da plataforma">
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◉</span><p>USUÁRIOS</p><strong id="statUsers">—</strong><small id="statUsersInfo">Carregando...</small></div>
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◈</span><p>JOGOS ATIVOS</p><strong id="statGames">—</strong><small id="statGamesInfo">Carregando...</small></div>
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◎</span><p>COMPRAS</p><strong id="statSales">—</strong><small id="statSalesInfo">Carregando...</small></div>
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◆</span><p>RECEITA TOTAL</p><strong id="statRevenue">—</strong><small id="statRevenueInfo">Carregando...</small></div>
+    </div>
+
+    <div class="gh-panel-grid">
+      <section class="card gh-manage-card" aria-labelledby="salesTitle">
+        <div class="gh-manage-heading"><div><p class="gh-eyebrow">VENDAS / HISTÓRICO</p><h2 id="salesTitle">ÚLTIMAS COMPRAS</h2></div><span id="salesCount" class="muted" aria-live="polite"></span></div>
+        <div class="table-wrap"><table class="table gh-admin-table"><thead><tr><th>DATA</th><th>CLIENTE</th><th>JOGO</th><th>VALOR PAGO</th></tr></thead><tbody id="salesRows"><tr><td colspan="4" class="muted">Carregando compras...</td></tr></tbody></table></div>
+      </section>
+      <section class="card gh-manage-card" aria-labelledby="rankTitle">
+        <div class="gh-manage-heading"><div><p class="gh-eyebrow">RANKING / CATÁLOGO</p><h2 id="rankTitle">MAIS VENDIDOS</h2></div></div>
+        <ol id="rankList" class="gh-rank"><li class="muted">Carregando...</li></ol>
+        <p id="reviewSummary" class="footer"></p>
+      </section>
+    </div>
+
+    <section aria-labelledby="shortcutsTitle">
+      <p class="gh-eyebrow" id="shortcutsTitle">ATALHOS DE GERENCIAMENTO</p>
+      <div class="gh-shortcuts">
+        <a class="card gh-shortcut" href="/gerenciar-jogos.html"><strong>GERENCIAR JOGOS ↗</strong><p id="shortGames">Cadastre, edite e desative títulos do catálogo.</p></a>
+        <a class="card gh-shortcut" href="/usuarios.html"><strong>GERENCIAR USUÁRIOS ↗</strong><p id="shortUsers">Crie contas, altere perfis e desative usuários.</p></a>
+        <div id="shortCategories" class="card gh-shortcut gh-shortcut--soon"><strong>GERENCIAR CATEGORIAS</strong><p id="shortCategoriesText">Organize os gêneros usados no catálogo.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="gh-footer">GAMEHUB <span>•</span> PLATAFORMA ACADÊMICA DE JOGOS DIGITAIS</footer>
+  <script type="module" src="/js/painel-admin.js"></script>
+</body>
+</html>

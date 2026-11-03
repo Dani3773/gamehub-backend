@@ -12,7 +12,7 @@ export function montarNavbar(user) {
             <div class="nav-links">
                 <a href="/jogos.html">Catálogo</a>
                
-                <a href="/compras">Minha biblioteca</a>
+                <a href="/biblioteca.html">Minha biblioteca</a>
             </div>
 
             <a class="user-chip" href="/perfil.html">

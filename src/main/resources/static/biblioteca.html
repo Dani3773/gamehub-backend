@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090B">
+  <title>Minha biblioteca | GameHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/jogos.css">
+  <link rel="stylesheet" href="/css/compras.css">
+</head>
+<body>
+  <div id="navbar"></div>
+  <main class="container gh-page">
+    <nav class="gh-breadcrumb" aria-label="Caminho de navegação"><a href="/jogos.html">CATÁLOGO</a><span aria-hidden="true">/</span><span>MINHA BIBLIOTECA</span></nav>
+    <div class="gh-admin-heading"><div><p class="gh-eyebrow"><span class="gh-pulse"></span> SUA COLEÇÃO / GAMEHUB</p><h1>MINHA <span>BIBLIOTECA.</span></h1><p class="muted">Todos os jogos que você comprou e o histórico de compras da sua conta.</p></div><a class="button primary" href="/jogos.html">EXPLORAR CATÁLOGO <span aria-hidden="true">↗</span></a></div>
+
+    <div class="gh-stat-grid" aria-label="Resumo da biblioteca">
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◈</span><p>JOGOS NA BIBLIOTECA</p><strong id="statGames">—</strong><small>Licenças da sua conta</small></div>
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◉</span><p>TOTAL INVESTIDO</p><strong id="statSpent">—</strong><small>Soma dos valores pagos</small></div>
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◎</span><p>ÚLTIMA COMPRA</p><strong id="statLast">—</strong><small id="statLastGame">Nenhuma compra ainda</small></div>
+    </div>
+
+    <div class="card gh-lib-tools">
+      <label class="gh-search" for="libSearch"><span aria-hidden="true">⌕</span><input id="libSearch" type="search" placeholder="Buscar na biblioteca..." autocomplete="off"></label>
+      <label class="gh-sort" for="libSort"><span>ORDENAR POR</span><select id="libSort"><option value="recent">Compra: recentes</option><option value="old">Compra: antigas</option><option value="name">Nome: A–Z</option><option value="price">Maior valor pago</option></select></label>
+    </div>
+
+    <div class="gh-results-head"><p id="libLabel" class="muted" aria-live="polite">Carregando sua biblioteca...</p><span class="gh-results-mark" aria-hidden="true">BIBLIOTECA / 2026</span></div>
+    <div id="libError" class="error hidden" role="alert"></div>
+    <div id="libGrid" class="gh-game-grid" aria-live="polite"></div>
+    <div id="libEmpty" class="gh-empty card hidden"><span aria-hidden="true">◈</span><h3 id="libEmptyTitle">SUA BIBLIOTECA ESTÁ VAZIA</h3><p id="libEmptyText" class="muted">Os jogos comprados aparecem aqui. Que tal escolher o primeiro?</p><a id="libEmptyAction" class="button primary" href="/jogos.html">IR AO CATÁLOGO</a></div>
+  </main>
+  <footer class="gh-footer">GAMEHUB <span>•</span> PLATAFORMA ACADÊMICA DE JOGOS DIGITAIS</footer>
+  <script type="module" src="/js/biblioteca.js"></script>
+</body>
+</html>

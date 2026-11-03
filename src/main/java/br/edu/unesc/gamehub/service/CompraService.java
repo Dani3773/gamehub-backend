@@ -12,6 +12,7 @@ import br.edu.unesc.gamehub.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -100,8 +101,8 @@ public class CompraService {
     private void validarAcesso(Long donoId) {
         Usuario usuario = buscarUsuarioAutenticado();
         if (!usuario.getId().equals(donoId) && !isAdmin()) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    "Somente o dono da compra ou ADMIN pode acessá-la");
+            // AccessDeniedException é tratada pelo GlobalExceptionHandler como HTTP 403
+            throw new AccessDeniedException("Somente o dono da compra ou ADMIN pode acessá-la");
         }
     }
 

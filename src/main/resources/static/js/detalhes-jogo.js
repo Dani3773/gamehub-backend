@@ -1,6 +1,7 @@
 import { api } from './api.js';
 import { guard } from './auth.js';
 import { montarNavbar } from './navbar.js';
+import { iniciarFluxoCompra } from './compra.js';
 import { $, escapeHtml, formatarPreco, formatarData, categoriaNomes, arteDoJogo, mostrarMensagem, ajustarNavbarJogos } from './jogos-ui.js';
 
 const id = new URLSearchParams(location.search).get('id');
@@ -68,10 +69,7 @@ async function iniciar() {
   try {
     const jogo = await api(`/jogos/${encodeURIComponent(id)}`);
     mostrarJogo(jogo);
-    $('#buyGame').addEventListener('click', () => {
-      $('#purchaseNotice').textContent = 'A integração do botão de compra está com o responsável pelo fluxo de compras. Nenhuma compra foi registrada.';
-      $('#purchaseNotice').classList.add('gh-purchase-note--notice');
-    });
+    await iniciarFluxoCompra(jogo, usuario);
     await mostrarAvaliacoes(jogo.id);
   } catch (erro) {
     $('#detailLoading').classList.add('hidden');

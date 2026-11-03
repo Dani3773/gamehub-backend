@@ -1,0 +1,263 @@
+/* TEMA GAMEHUB | Complemento das telas de Lucas: Minha Biblioteca, fluxo de compra e Painel Administrativo.
+   Usa as variáveis de css/style.css e as classes base de css/jogos.css (gh-*). */
+
+/* BIBLIOTECA */
+.gh-lib-tools {
+  clip-path:none;
+  border-top:1px solid var(--card-borda);
+  padding:18px 20px;
+  margin-bottom:22px;
+  display:flex;
+  gap:16px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap
+}
+.gh-lib-tools .gh-search {
+  flex:1;
+  min-width:min(320px,100%)
+}
+.gh-lib-card {
+  position:relative
+}
+.gh-owned-badge {
+  position:absolute;
+  top:14px;
+  left:14px;
+  z-index:2;
+  padding:6px 10px;
+  border-radius:3px;
+  background:#0d2a1a;
+  border:1px solid #287e4d;
+  color:var(--verde);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.12em
+}
+.gh-lib-meta {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:0 0 18px
+}
+.gh-lib-meta div {
+  border:1px solid #2c2c35;
+  background:#101014;
+  padding:10px 12px;
+  border-radius:3px
+}
+.gh-lib-meta span {
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.12em;
+  margin-bottom:5px
+}
+.gh-lib-meta strong {
+  font:700 17px/1.1 Rajdhani,Arial,sans-serif;
+  color:var(--texto)
+}
+.gh-lib-actions {
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap
+}
+.gh-lib-inactive {
+  display:inline-block;
+  margin-top:8px;
+  color:#ffb9c0;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em
+}
+
+/* FLUXO DE COMPRA (Detalhes do Jogo) */
+.gh-purchase-button.gh-owned {
+  background:#0d2a1a;
+  border:1px solid #287e4d;
+  color:var(--verde);
+  animation:none
+}
+.gh-purchase-button.gh-owned:disabled {
+  opacity:1;
+  cursor:default
+}
+.gh-purchase-note--success {
+  color:var(--verde)
+}
+.gh-purchase-note a {
+  color:var(--vermelho-claro);
+  font-weight:700
+}
+.gh-buy-modal {
+  width:min(100%,480px)
+}
+.gh-buy-summary {
+  display:flex;
+  gap:16px;
+  align-items:center;
+  border:1px solid #2c2c35;
+  background:#101014;
+  padding:16px;
+  border-radius:4px;
+  margin:6px 0 18px
+}
+.gh-buy-summary__mark {
+  flex-shrink:0;
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  background:#32111a;
+  color:var(--vermelho-claro);
+  font:900 26px Orbitron,Arial,sans-serif;
+  border-radius:4px
+}
+.gh-buy-summary strong {
+  display:block;
+  font:700 22px/1.15 Rajdhani,Arial,sans-serif;
+  text-transform:uppercase;
+  overflow-wrap:anywhere
+}
+.gh-buy-summary small {
+  color:var(--muted);
+  font-size:11px
+}
+.gh-buy-total {
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  border-top:1px solid #30303a;
+  border-bottom:1px solid #30303a;
+  padding:14px 0;
+  margin-bottom:12px
+}
+.gh-buy-total span {
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.12em
+}
+.gh-buy-total strong {
+  font:700 32px/1 Rajdhani,Arial,sans-serif
+}
+.gh-buy-modal .gh-helper-text {
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.6;
+  margin:0
+}
+
+/* PAINEL ADMINISTRATIVO */
+.gh-stat-grid--4 {
+  grid-template-columns:repeat(4,minmax(0,1fr))
+}
+.gh-panel-grid {
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:22px;
+  margin-bottom:22px
+}
+.gh-panel-grid>.card {
+  min-width:0
+}
+.gh-rank {
+  list-style:none;
+  margin:0;
+  padding:0;
+  counter-reset:rank
+}
+.gh-rank li {
+  counter-increment:rank;
+  display:grid;
+  grid-template-columns:30px minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+  padding:12px 0;
+  border-top:1px solid #2c2c35
+}
+.gh-rank li:before {
+  content:counter(rank,decimal-leading-zero);
+  font:700 18px Rajdhani,Arial,sans-serif;
+  color:var(--vermelho-texto)
+}
+.gh-rank li.muted {
+  display:block
+}
+.gh-rank li.muted:before {
+  content:none
+}
+.gh-panel-grid .table {
+  min-width:520px
+}
+.gh-rank strong {
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+.gh-rank small {
+  color:var(--muted);
+  font-size:11px
+}
+.gh-rank em {
+  font:700 italic 17px Rajdhani,Arial,sans-serif;
+  color:var(--texto-2)
+}
+.gh-rank-bar {
+  display:block;
+  height:3px;
+  margin-top:6px;
+  background:var(--vermelho);
+  border-radius:2px
+}
+.gh-shortcuts {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px
+}
+.gh-shortcut {
+  display:block;
+  clip-path:none;
+  border-top:1px solid var(--card-borda);
+  text-decoration:none;
+  color:var(--texto);
+  transition:transform .2s,border-color .2s
+}
+a.gh-shortcut:hover {
+  transform:translateY(-3px);
+  border-color:#af3048
+}
+.gh-shortcut strong {
+  display:block;
+  font:700 21px Rajdhani,Arial,sans-serif;
+  letter-spacing:.05em;
+  margin-bottom:6px
+}
+.gh-shortcut p {
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6
+}
+.gh-shortcut--soon {
+  opacity:.6
+}
+
+@media(max-width:1050px) {
+  .gh-stat-grid--4 {
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+  .gh-panel-grid {
+    grid-template-columns:1fr
+  }
+}
+@media(max-width:760px) {
+  .gh-stat-grid--4,.gh-shortcuts {
+    grid-template-columns:1fr
+  }
+  .gh-lib-meta {
+    grid-template-columns:1fr
+  }
+}
