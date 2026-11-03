@@ -5,20 +5,20 @@ import { $, escapeHtml, formatarPreco } from './jogos-ui.js';
 
 // A navbar compartilhada aponta "Minha biblioteca" para /compras, que é o endpoint JSON.
 // Corrigimos o link apenas nas telas que usam este módulo, sem editar o navbar.js.
-export function ajustarNavbarCompras(perfil) {
-  document.querySelectorAll('#navbar a[href="/compras"]').forEach(link => { link.href = '/biblioteca.html'; });
-  const navLinks = document.querySelector('#navbar .nav-links');
-  if (perfil === 'ADMIN' && navLinks && !navLinks.querySelector('[data-admin-panel]')) {
-    const link = document.createElement('a');
-    link.href = '/painel-admin.html';
-    link.textContent = 'Painel admin';
-    link.dataset.adminPanel = 'true';
-    navLinks.appendChild(link);
-  }
+export function ajustarNavbarCompras() {
+  document.querySelectorAll('#navbar a[href="/compras"]').forEach(link => {
+    link.href = '/biblioteca.html';
+  });
+
   document.querySelectorAll('#navbar a[href]').forEach(link => {
     const ativo = link.pathname === location.pathname;
     link.classList.toggle('active', ativo);
-    if (ativo) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+
+    if (ativo) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
   });
 }
 

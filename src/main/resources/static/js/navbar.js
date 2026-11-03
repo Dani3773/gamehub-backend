@@ -45,6 +45,12 @@ export function montarNavbar(user) {
         linkGerenciarJogos.textContent = 'Gerenciar jogos';
 
         container.querySelector('.nav-links').appendChild(linkGerenciarJogos);
+
+        const linkPainelAdmin = document.createElement('a');
+        linkPainelAdmin.href = '/painel-admin.html';
+        linkPainelAdmin.textContent = 'Painel Admin';
+
+        container.querySelector('.nav-links').appendChild(linkPainelAdmin);
     }
 
     // textContent evita interpretar o nome como HTML.
