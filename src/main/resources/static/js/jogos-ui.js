@@ -66,7 +66,7 @@ export function ajustarNavbarJogos(perfil) {
   });
   if (perfil === 'ADMIN') {
     const navLinks = document.querySelector('#navbar .nav-links');
-    if (navLinks && !navLinks.querySelector('[data-manage-games]')) {
+    if (navLinks && !navLinks.querySelector('a[href="/gerenciar-jogos.html"]'))  {
       const link = document.createElement('a');
       link.href = '/gerenciar-jogos.html';
       link.textContent = 'Gerenciar jogos';

@@ -7,10 +7,11 @@ export function montarNavbar(user) {
 
     container.innerHTML = `
         <nav class="navbar" aria-label="Navegação principal">
-            <a class="brand" href="/jogos">GAMEHUB</a>
+            <a class="brand" href="/jogos.html">GAMEHUB</a>
 
             <div class="nav-links">
-                <a href="/jogos">Catálogo</a>
+                <a href="/jogos.html">Catálogo</a>
+               
                 <a href="/compras">Minha biblioteca</a>
             </div>
 
@@ -32,6 +33,18 @@ export function montarNavbar(user) {
         linkUsuarios.textContent = 'Usuários';
 
         container.querySelector('.nav-links').appendChild(linkUsuarios);
+
+        const linkCategorias = document.createElement('a');
+        linkCategorias.href = '/categorias.html';
+        linkCategorias.textContent = 'Categorias';
+
+        container.querySelector('.nav-links').appendChild(linkCategorias);
+
+        const linkGerenciarJogos = document.createElement('a');
+        linkGerenciarJogos.href = '/gerenciar-jogos.html';
+        linkGerenciarJogos.textContent = 'Gerenciar jogos';
+
+        container.querySelector('.nav-links').appendChild(linkGerenciarJogos);
     }
 
     // textContent evita interpretar o nome como HTML.
