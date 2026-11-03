@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090B">
+  <title>Catálogo de jogos | GameHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/jogos.css">
+</head>
+<body>
+  <div id="navbar"></div>
+  <main class="container gh-page">
+    <section class="gh-hero" aria-labelledby="heroTitle">
+      <div class="gh-hero__copy">
+        <p class="gh-eyebrow"><span class="gh-pulse"></span> SUA PRÓXIMA AVENTURA COMEÇA AQUI</p>
+        <h1 id="heroTitle" class="gh-hero__title">DESCUBRA NOVOS <span>UNIVERSOS.</span></h1>
+        <p class="gh-hero__description">Explore o catálogo GameHub e encontre o próximo jogo para chamar de seu.</p>
+        <a class="button primary gh-hero__action" href="#catalogo">EXPLORAR CATÁLOGO <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="gh-hero__visual" id="featuredPoster" aria-label="Jogo em destaque">
+        <div class="gh-feature-placeholder"><span aria-hidden="true">◈</span><strong>GAMEHUB</strong><small>SELEÇÃO DE JOGOS</small></div>
+      </div>
+      <span class="gh-hero__index" aria-hidden="true">01 / GAMEHUB</span>
+    </section>
+
+    <section id="catalogo" class="gh-section" aria-labelledby="catalogTitle">
+      <div class="gh-section__header">
+        <div>
+          <p class="gh-eyebrow">BIBLIOTECA DIGITAL</p>
+          <h2 id="catalogTitle" class="gh-section__title">EXPLORE OS JOGOS</h2>
+          <p class="muted gh-subtitle">Filtre por gênero, pesquise e encontre sua próxima experiência.</p>
+        </div>
+        <a class="button gh-admin-link hidden" id="adminGamesLink" href="/gerenciar-jogos.html">GERENCIAR JOGOS</a>
+      </div>
+      <div class="gh-catalog-tools card">
+        <div class="gh-catalog-tools__top">
+          <label class="gh-search" for="gameSearch"><span aria-hidden="true">⌕</span><input id="gameSearch" type="search" placeholder="Buscar jogos pelo nome..." autocomplete="off"></label>
+          <label class="gh-sort" for="sortGames"><span>ORDENAR POR</span><select id="sortGames"><option value="name">Nome: A–Z</option><option value="newest">Lançamento: recentes</option><option value="low">Menor preço</option><option value="high">Maior preço</option></select></label>
+        </div>
+        <div id="categoryFilters" class="gh-categories" aria-label="Filtro de gêneros">Carregando categorias...</div>
+      </div>
+      <div class="gh-results-head"><p id="resultsLabel" class="muted" aria-live="polite">Carregando jogos...</p><span class="gh-results-mark" aria-hidden="true">CATÁLOGO / 2026</span></div>
+      <div id="catalogError" class="error hidden" role="alert"></div>
+      <div id="gamesGrid" class="gh-game-grid" aria-live="polite"></div>
+      <div id="emptyCatalog" class="gh-empty card hidden"><span aria-hidden="true">⌕</span><h3>NENHUM JOGO ENCONTRADO</h3><p class="muted">Tente outro termo ou selecione uma categoria diferente.</p><button id="clearFilters" type="button" class="button">Limpar pesquisa</button></div>
+    </section>
+  </main>
+  <footer class="gh-footer">GAMEHUB <span>•</span> PLATAFORMA ACADÊMICA DE JOGOS DIGITAIS</footer>
+  <script type="module" src="/js/jogos.js"></script>
+</body>
+</html>

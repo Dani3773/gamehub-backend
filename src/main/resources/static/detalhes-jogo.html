@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090B">
+  <title>Detalhes do jogo | GameHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/jogos.css">
+</head>
+<body>
+  <div id="navbar"></div>
+  <main class="container gh-page">
+    <nav class="gh-breadcrumb" aria-label="Caminho de navegação"><a href="/jogos.html">CATÁLOGO</a><span aria-hidden="true">/</span><span id="breadcrumbGame">DETALHES</span></nav>
+    <div id="detailError" class="error hidden" role="alert"></div>
+    <div id="detailLoading" class="gh-loading card">Carregando informações do jogo...</div>
+    <div id="detailContent" class="hidden">
+      <div class="gh-detail-head">
+        <p class="gh-eyebrow">GAMEHUB / DETALHES DO JOGO</p>
+        <h1 id="gameTitle" class="gh-detail-title"></h1>
+        <div id="gameTags" class="gh-tag-list" aria-label="Categorias do jogo"></div>
+      </div>
+      <div class="gh-detail-layout">
+        <section id="detailPoster" aria-label="Arte ilustrativa do jogo"></section>
+        <aside class="card gh-buy-panel" aria-label="Resumo do jogo">
+          <p class="gh-eyebrow">JOGO DIGITAL</p>
+          <p id="availability" class="gh-availability"></p>
+          <div class="gh-price-block"><span>PREÇO ATUAL</span><strong id="gamePrice"></strong></div>
+          <div class="gh-spec"><span>LANÇAMENTO</span><strong id="gameDate"></strong></div>
+          <div class="gh-spec"><span>CATEGORIAS</span><strong id="gameGenres"></strong></div>
+          <button id="buyGame" type="button" class="button primary full gh-purchase-button">COMPRAR JOGO <span aria-hidden="true">↗</span></button>
+          <p id="purchaseNotice" class="gh-purchase-note" role="status">O fluxo de compra será integrado à tela do responsável pela biblioteca.</p>
+          <a id="reviewsLink" class="button gh-outline-button full" href="/jogos.html">VER TODAS AS AVALIAÇÕES</a>
+          <p class="gh-buy-footnote">Os dados e preços são atualizados diretamente pela API GameHub.</p>
+        </aside>
+      </div>
+      <section class="gh-detail-bottom">
+        <article class="card gh-description-card"><p class="gh-eyebrow">SOBRE ESTE TÍTULO</p><h2>O JOGO</h2><p id="gameDescription" class="gh-description-text"></p></article>
+        <aside class="card gh-reviews-card"><div class="gh-review-title"><div><p class="gh-eyebrow">COMUNIDADE</p><h2>AVALIAÇÕES</h2></div><span id="ratingStars" class="stars" aria-label="Média das avaliações">☆☆☆☆☆</span></div><p id="ratingSummary" class="muted"></p><div id="reviewHighlights" class="gh-review-highlights"></div><a id="reviewMore" href="/jogos.html" class="gh-text-link">LER TODAS AS AVALIAÇÕES <span aria-hidden="true">↗</span></a></aside>
+      </section>
+    </div>
+  </main>
+  <footer class="gh-footer">GAMEHUB <span>•</span> PLATAFORMA ACADÊMICA DE JOGOS DIGITAIS</footer>
+  <script type="module" src="/js/detalhes-jogo.js"></script>
+</body>
+</html>

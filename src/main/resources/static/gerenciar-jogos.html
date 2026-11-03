@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090B">
+  <title>Gerenciar jogos | GameHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/jogos.css">
+</head>
+<body>
+  <div id="navbar"></div>
+  <main class="container gh-page gh-admin-page">
+    <nav class="gh-breadcrumb" aria-label="Caminho de navegação"><a href="/jogos.html">CATÁLOGO</a><span aria-hidden="true">/</span><span>GERENCIAR JOGOS</span></nav>
+    <div class="gh-admin-heading"><div><p class="gh-eyebrow">PAINEL ADMINISTRATIVO / GAMEHUB</p><h1>GERENCIAR <span>JOGOS.</span></h1><p class="muted">Cadastre, edite e organize os títulos disponíveis na plataforma.</p></div><button id="newGame" type="button" class="button primary">+ NOVO JOGO</button></div>
+    <div class="gh-stat-grid" aria-label="Resumo do catálogo">
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◈</span><p>JOGOS CADASTRADOS</p><strong id="statTotal">—</strong><small>Todos os registros</small></div>
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◉</span><p>JOGOS ATIVOS</p><strong id="statActive">—</strong><small>Visíveis no catálogo</small></div>
+      <div class="card gh-stat"><span class="gh-stat__icon" aria-hidden="true">◎</span><p>JOGOS INATIVOS</p><strong id="statInactive">—</strong><small>Fora do catálogo</small></div>
+    </div>
+    <section class="card gh-manage-card" aria-labelledby="manageTitle">
+      <div class="gh-manage-heading"><div><p class="gh-eyebrow">LISTAGEM / CRUD DE JOGOS</p><h2 id="manageTitle">CATÁLOGO CADASTRADO</h2></div><span id="adminCount" class="muted" aria-live="polite"></span></div>
+      <div class="gh-admin-filters"><label class="gh-search" for="adminSearch"><span aria-hidden="true">⌕</span><input id="adminSearch" type="search" placeholder="Buscar por nome..." autocomplete="off"></label><label class="gh-sort" for="statusFilter"><span>STATUS</span><select id="statusFilter"><option value="all">Todos</option><option value="active">Ativos</option><option value="inactive">Inativos</option></select></label></div>
+      <div id="adminError" class="error hidden" role="alert"></div>
+      <div id="adminSuccess" class="gh-success hidden" role="status"></div>
+      <div class="table-wrap"><table class="table gh-admin-table"><thead><tr><th>JOGO</th><th>CATEGORIAS</th><th>PREÇO</th><th>STATUS</th><th>LANÇAMENTO</th><th>AÇÕES</th></tr></thead><tbody id="adminRows"><tr><td colspan="6" class="muted">Carregando jogos...</td></tr></tbody></table></div>
+    </section>
+  </main>
+  <div id="gameModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <section class="card modal gh-game-modal">
+      <div class="gh-modal-heading"><div><p class="gh-eyebrow">ADMIN / GAMEHUB</p><h2 id="modalTitle">NOVO JOGO</h2></div><button id="closeModal" type="button" class="gh-close" aria-label="Fechar formulário">×</button></div>
+      <form id="gameForm">
+        <div class="field"><label for="gameName">Nome do jogo *</label><input id="gameName" name="nome" required maxlength="160" placeholder="Ex.: Aventura Espacial" autocomplete="off"></div>
+        <div class="field"><label for="gameDescription">Descrição</label><textarea id="gameDescription" name="descricao" maxlength="3000" placeholder="Conte um pouco sobre o jogo..."></textarea></div>
+        <div class="gh-form-row"><div class="field"><label for="gamePriceInput">Preço (R$) *</label><input id="gamePriceInput" name="preco" type="number" min="0.01" step="0.01" required placeholder="59.90"></div><div class="field"><label for="gameRelease">Data de lançamento</label><input id="gameRelease" name="dataLancamento" type="date"></div></div>
+        <fieldset class="gh-category-fieldset"><legend>Categorias do jogo</legend><div id="categoryCheckboxes" class="gh-checkbox-grid"><span class="muted">Carregando...</span></div></fieldset>
+        <p class="gh-helper-text">* Campos obrigatórios. Jogos novos são cadastrados como ativos.</p>
+        <div id="modalError" class="error hidden" role="alert"></div>
+        <div class="modal-actions"><button id="cancelGame" type="button" class="button">CANCELAR</button><button id="saveGame" type="submit" class="button primary">SALVAR JOGO</button></div>
+      </form>
+    </section>
+  </div>
+  <script type="module" src="/js/gerenciar-jogos.js"></script>
+</body>
+</html>
